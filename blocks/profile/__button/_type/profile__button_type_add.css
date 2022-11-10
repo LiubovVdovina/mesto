@@ -1,0 +1,16 @@
+.profile__button_type_add {
+  border-width: 2px;
+  background-image: url('../../../../images/add-button.png');
+  background-size: 24px 24px;
+  width: 150px;
+  height: 50px;
+  aspect-ratio: 3/1;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__button_type_add {
+    width: 100%;
+    height: 50px;
+    background-size: 16px 16px;
+  }
+}
