@@ -2,3 +2,8 @@
   display: block;
   width: 30px;
 }
+
+.gallery__like:hover {
+  cursor: pointer;
+  opacity: .5;
+}
