@@ -7,7 +7,7 @@ let nameInput = popup.querySelector('.input__text_type_name');
 let jobInput = popup.querySelector('.input__text_type_job');
 let closeButton = popup.querySelector('.button_type_close');
 
-function openPopup() {
+function openPopup(evt) {
   popup.classList.add('popup_opened');
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
@@ -16,6 +16,7 @@ function openPopup() {
 function closePopup(evt) {
   evt.preventDefault();
   popup.classList.remove('popup_opened');
+  console.log('closed');
 }
 
 function formSubmitHandler (evt) {
@@ -30,5 +31,3 @@ function formSubmitHandler (evt) {
 editButton.addEventListener('click', openPopup);
 closeButton.addEventListener('click', closePopup);
 formElement.addEventListener('submit', formSubmitHandler); 
-
-console.log(innerHeight);
