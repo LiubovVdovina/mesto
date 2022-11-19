@@ -15,12 +15,12 @@
       <img class="profile__avatar" src="./images/profile-img.jpg" alt="аватар пользователя">
       <div class="profile__info">
         <div class="profile__top-row">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__button profile__button_type_edit"></button>
+          <h1 class="profile__name">Жак-Ив Кусто</h1> 
+          <button class="button button_type_edit"></button>
         </div>
         <p class="profile__job">Исследователь океана</p>
       </div>
-      <button class="profile__button profile__button_type_add"></button>
+      <button class="button button_type_add"></button>
     </section>
     <section class="gallery">
       <div class="gallery__card">
@@ -82,5 +82,17 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
+  <div class="popup">
+    <form class="popup__container">
+      <button class="button button_type_close"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <div class="input">
+        <input type="text" placeholder="Введите ваше имя" class="input__text input__text_type_name">
+        <input type="text" placeholder="Введите вашу профессию" class="input__text input__text_type_job">
+      </div>
+      <input class="button popup__submit" type="submit" value="Сохранить">
+    </form>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>

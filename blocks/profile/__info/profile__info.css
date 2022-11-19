@@ -2,9 +2,10 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  overflow-wrap: anywhere;
-  overflow: hidden;
   box-sizing: border-box;
+  width: min-content;
+  max-width: 526px;
+  height: 100%;
 }
 
 @media screen and (max-width: 768px) {
