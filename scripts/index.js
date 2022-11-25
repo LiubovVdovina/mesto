@@ -14,8 +14,6 @@ const addClose = addPopup.querySelector('.button_type_close');
 const placeInput = addPopup.querySelectorAll('.input__text')[0];
 const srcInput = addPopup.querySelectorAll('.input__text')[1];
 
-const gallery = document.querySelector('.gallery__list');
-
 // Динамическое добавление карточек через JS
 
 const initialCards = [
@@ -53,6 +51,8 @@ function addCard(card) {
   cardElement.querySelector('.card__img').src = card.link;
   cardElement.querySelector('.card__img').alt = card.name;
   cardElement.querySelector('.card__caption').textContent = card.name;
+  cardElement.querySelector('.card__like').addEventListener('click', clickLike);
+  cardElement.querySelector('.button_type_remove').addEventListener('click', removeCard);
   cardList.prepend(cardElement);
 }
 
@@ -109,10 +109,12 @@ addClose.addEventListener('click', closeAddPopup);
 addForm.addEventListener('submit', addSubmitHandler); 
 
 // окрашивание лайка при нажатии
-
 function clickLike(evt) {
-  console.log(evt.target);
   evt.target.classList.toggle('card__like_active');
 }
 
-gallery.addEventListener('click', clickLike);
+// удаление карточки при нажатии на корзину
+function removeCard(evt) {
+  console.log(evt.target.parentElement);
+  evt.target.parentElement.remove();
+}

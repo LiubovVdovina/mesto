@@ -26,6 +26,7 @@
 
 @import url(../blocks/gallery/__list/gallery__list.css);
 @import url(../blocks/card/card.css);
+@import url(../blocks/button/_type/button_type_remove.css);
 @import url(../blocks/card/__img/card__img.css);
 @import url(../blocks/card/__label/card__label.css);
 @import url(../blocks/card/__caption/card__caption.css);
