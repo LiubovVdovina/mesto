@@ -7,13 +7,14 @@ const editClose = editPopup.querySelector('.button_type_close');
 const nameInput = editPopup.querySelectorAll('.input__text')[0];
 const jobInput = editPopup.querySelectorAll('.input__text')[1];
 
-
 const addButton = document.querySelector('.button_type_add');
 const addPopup = document.querySelector('.popup_type_add');
 const addForm = addPopup.querySelector('.input');
 const addClose = addPopup.querySelector('.button_type_close');
 const placeInput = addPopup.querySelectorAll('.input__text')[0];
 const srcInput = addPopup.querySelectorAll('.input__text')[1];
+
+const gallery = document.querySelector('.gallery__list');
 
 // Динамическое добавление карточек через JS
 
@@ -106,3 +107,12 @@ function addSubmitHandler (evt) {
 addButton.addEventListener('click', openAddPopup);
 addClose.addEventListener('click', closeAddPopup);
 addForm.addEventListener('submit', addSubmitHandler); 
+
+// окрашивание лайка при нажатии
+
+function clickLike(evt) {
+  console.log(evt.target);
+  evt.target.classList.toggle('card__like_active');
+}
+
+gallery.addEventListener('click', clickLike);
