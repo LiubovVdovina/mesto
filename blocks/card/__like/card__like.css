@@ -1,4 +1,4 @@
-.gallery__like {
+.card__like {
   display: block;
   width: 22px;
   height: 19px;
@@ -9,7 +9,7 @@
   padding: 0;
 }
 
-.gallery__like:hover {
+.card__like:hover {
   cursor: pointer;
   opacity: .5; 
 }
