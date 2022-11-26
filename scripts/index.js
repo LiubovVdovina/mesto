@@ -3,21 +3,31 @@ const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const editPopup = document.querySelector('.popup_type_edit');
 const editForm = editPopup.querySelector('.input');
-const editClose = editPopup.querySelector('.button_type_close');
 const nameInput = editPopup.querySelectorAll('.input__text')[0];
 const jobInput = editPopup.querySelectorAll('.input__text')[1];
 
 const addButton = document.querySelector('.button_type_add');
 const addPopup = document.querySelector('.popup_type_add');
 const addForm = addPopup.querySelector('.input');
-const addClose = addPopup.querySelector('.button_type_close');
 const placeInput = addPopup.querySelectorAll('.input__text')[0];
 const srcInput = addPopup.querySelectorAll('.input__text')[1];
 
 const imgPopup = document.querySelector('.popup_type_img');
 const popupImg = imgPopup.querySelector('.popup__img');
 const popupCaption = imgPopup.querySelector('.popup__caption');
-const closeButPopup = imgPopup.querySelector('.button_type_close');
+
+
+// Поставить слушатели для закрытия модальных окон
+const closeButtons = document.querySelectorAll('.button_type_close');
+closeButtons.forEach(item => {
+  item.addEventListener('click', closePopup);
+});
+
+// Функция закрытия попапа
+function closePopup(evt) {
+  const popupElement = evt.target.parentElement.parentElement;
+  popupElement.classList.remove('popup_opened');
+}
 
 // Динамическое добавление карточек через JS
 
@@ -64,16 +74,12 @@ function addCard(card) {
 
 initialCards.forEach(addCard);
 
-//функции обработки и слушатели для открытия, закрытия и обработки editPopup 
+//функции обработки и слушатели для открытия и обработки editPopup 
 
 function openEditPopup() {
   editPopup.classList.add('popup_opened');
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-}
-
-function closeEditPopup() {
-  editPopup.classList.remove('popup_opened');
 }
 
 function editSubmitHandler (evt) {
@@ -82,21 +88,16 @@ function editSubmitHandler (evt) {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
-  closeEditPopup();
+  closePopup();
 }
 
 editButton.addEventListener('click', openEditPopup);
-editClose.addEventListener('click', closeEditPopup);
 editForm.addEventListener('submit', editSubmitHandler); 
 
-//функции обработки и слушатели для открытия, закрытия и обработки addPopup 
+//функции обработки и слушатели для открытия и обработки addPopup 
 
 function openAddPopup() {
   addPopup.classList.add('popup_opened');
-}
-
-function closeAddPopup() {
-  addPopup.classList.remove('popup_opened');
 }
 
 function addSubmitHandler (evt) {
@@ -107,12 +108,18 @@ function addSubmitHandler (evt) {
   addCard(card);
   placeInput.value = '';
   srcInput.value = '';
-  closeAddPopup();
+  closePopup();
 }
 
 addButton.addEventListener('click', openAddPopup);
-addClose.addEventListener('click', closeAddPopup);
 addForm.addEventListener('submit', addSubmitHandler); 
+
+// открытие попапа картинки
+function openImgPopup(evt) {
+  imgPopup.classList.add('popup_opened');
+  popupImg.src = evt.target.src;
+  popupCaption.textContent = evt.target.parentElement.querySelector('.card__caption').textContent;
+}
 
 // окрашивание лайка при нажатии
 function clickLike(evt) {
@@ -123,17 +130,4 @@ function clickLike(evt) {
 function removeCard(evt) {
   console.log(evt.target.parentElement);
   evt.target.parentElement.remove();
-}
-
-// открытие попапа картинки
-function openImgPopup(evt) {
-  imgPopup.classList.add('popup_opened');
-  popupImg.src = evt.target.src;
-  popupCaption.textContent = evt.target.parentElement.querySelector('.card__caption').textContent;
-}
-
-//закрытие попапа картинки
-closeButPopup.addEventListener('click',closeImgPopup);
-function closeImgPopup(evt) {
-  imgPopup.classList.remove('popup_opened');
 }
