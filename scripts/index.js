@@ -14,6 +14,11 @@ const addClose = addPopup.querySelector('.button_type_close');
 const placeInput = addPopup.querySelectorAll('.input__text')[0];
 const srcInput = addPopup.querySelectorAll('.input__text')[1];
 
+const imgPopup = document.querySelector('.popup_type_img');
+const popupImg = imgPopup.querySelector('.popup__img');
+const popupCaption = imgPopup.querySelector('.popup__caption');
+const closeButPopup = imgPopup.querySelector('.button_type_close');
+
 // Динамическое добавление карточек через JS
 
 const initialCards = [
@@ -50,6 +55,7 @@ function addCard(card) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   cardElement.querySelector('.card__img').src = card.link;
   cardElement.querySelector('.card__img').alt = card.name;
+  cardElement.querySelector('.card__img').addEventListener('click', openImgPopup);
   cardElement.querySelector('.card__caption').textContent = card.name;
   cardElement.querySelector('.card__like').addEventListener('click', clickLike);
   cardElement.querySelector('.button_type_remove').addEventListener('click', removeCard);
@@ -117,4 +123,17 @@ function clickLike(evt) {
 function removeCard(evt) {
   console.log(evt.target.parentElement);
   evt.target.parentElement.remove();
+}
+
+// открытие попапа картинки
+function openImgPopup(evt) {
+  imgPopup.classList.add('popup_opened');
+  popupImg.src = evt.target.src;
+  popupCaption.textContent = evt.target.parentElement.querySelector('.card__caption').textContent;
+}
+
+//закрытие попапа картинки
+closeButPopup.addEventListener('click',closeImgPopup);
+function closeImgPopup(evt) {
+  imgPopup.classList.remove('popup_opened');
 }
