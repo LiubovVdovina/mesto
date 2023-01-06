@@ -84,7 +84,7 @@ const openPopupImg = (evt) => {
 // Функция закрытия попапа
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
-  popup.removeEventListener('keydown', closeEscapeKey);
+  document.removeEventListener('keydown', closeEscapeKey);
 }
 
 // Функция закрытия попапа по нажатию escape
