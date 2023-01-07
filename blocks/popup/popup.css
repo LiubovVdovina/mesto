@@ -8,9 +8,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  visibility: hidden;
   opacity: 0;
-  transition: visibility 0.5s, opacity 0.5s linear;
+  visibility: hidden;
+  transition: visibility 0s, opacity 0.5s linear;
 }
 
 .popup::before {

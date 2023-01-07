@@ -12,12 +12,14 @@ const showError = (form, input, errorMessage) => {
   const errorElement = form.querySelector(`.${input.id}-error`);
   input.classList.add(config.inputErrorClass);
   errorElement.textContent = errorMessage;
+  errorElement.classList.add(config.errorClass);
 };
 
 const hideError = (form, input) => {
   const errorElement = form.querySelector(`.${input.id}-error`);
   input.classList.remove(config.inputErrorClass);
   errorElement.textContent = '';
+  errorElement.classList.remove(config.errorClass);
 };
 
 const hasInvalidInput = (inputList) => {
@@ -67,5 +69,5 @@ enableValidation(config = {
   submitButtonSelector: '.button_type_submit',
   inactiveButtonClass: 'button_inactive',
   inputErrorClass: 'form__input_type_error', 
-  errorClass: 'form__input-error_active' // не использую
+  errorClass: 'form__input-error_active'
 }); 
