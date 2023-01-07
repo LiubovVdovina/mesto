@@ -64,7 +64,7 @@ const openPopup = (popup) => {
   document.addEventListener('keydown', closeEscapeKey);
   popup.querySelector('.popup__wrapper').addEventListener('click', (evt) => evt.stopPropagation());
   popup.addEventListener('click', () => closePopup(popup));
-  popup.classList.add('popup_opened');
+  popup.classList.add('popup_opened', 'popup_smooth');
 }
 
 // Обертки для функций открытия
