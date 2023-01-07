@@ -23,7 +23,6 @@ const jobInput = popupEditProfile.querySelector('.form__input_type_job');
 const formAddCard = popupAddCard.querySelector('.form');
 const placeInput = popupAddCard.querySelector('.form__input_type_place');
 const srcInput = popupAddCard.querySelector('.form__input_type_src');
-const formAddCardSubmit = formAddCard.querySelector('.button_type_submit');
 
 const imagePopupElement = popupImg.querySelector('.popup__img');
 const captionPopupElement = popupImg.querySelector('.popup__caption');
@@ -112,8 +111,8 @@ const handleFormAddCardSubmit = (evt) => {
   card.link = srcInput.value;
   addCard(card);
   formAddCard.reset();
-  formAddCardSubmit.disabled = true;
-  formAddCardSubmit.classList.add(config.inactiveButtonClass);
+  evt.submitter.disabled = true;
+  evt.submitter.classList.add(config.inactiveButtonClass);
   closePopup(popupAddCard);
 }
 
