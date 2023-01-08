@@ -63,7 +63,7 @@ const initialCards = [
 // Функция открытия попапа
 const openPopup = (popup) => {
   document.addEventListener('keydown', closeEscapeKey);
-  popup.classList.add('popup_opened', 'popup_smooth');
+  popup.classList.add('popup_opened');
 }
 
 // Обертки для функций открытия
