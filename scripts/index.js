@@ -68,10 +68,10 @@ const openPopupEditProfile = () => {
   openPopup(popupEditProfile);
 }
 
-const openPopupImg = (evt) => {
-  imagePopupElement.src = evt.target.src;
-  imagePopupElement.alt = evt.target.alt;
-  captionPopupElement.textContent = evt.target.closest('.card').querySelector('.card__caption').textContent;
+const openPopupImg = (card) => {
+  imagePopupElement.src = card.link;
+  imagePopupElement.alt = card.name;
+  captionPopupElement.textContent = card.name;
   openPopup(popupImg);
 }
 
@@ -114,7 +114,7 @@ const createCard = (card) => {
   const cardImgElement = cardElement.querySelector('.card__img');
   cardImgElement.src = card.link;
   cardImgElement.alt = card.name;
-  cardImgElement.addEventListener('click', openPopupImg);
+  cardImgElement.addEventListener('click', () => openPopupImg(card));
   cardElement.querySelector('.card__caption').textContent = card.name;
   cardElement.querySelector('.card__like').addEventListener('click', clickLike);
   cardElement.querySelector('.button_type_remove').addEventListener('click', removeCard);
