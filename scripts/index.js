@@ -12,11 +12,11 @@ const popupList = Array.from(document.querySelectorAll('.popup'));
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 
-const formEditProfile = popupEditProfile.querySelector('.form');
+const formEditProfile = document.forms["edit-form"];
 const nameInput = popupEditProfile.querySelector('.form__input_type_name');
 const jobInput = popupEditProfile.querySelector('.form__input_type_job');
 
-const formAddCard = popupAddCard.querySelector('.form');
+const formAddCard = document.forms["place-form"];
 const placeInput = popupAddCard.querySelector('.form__input_type_place');
 const srcInput = popupAddCard.querySelector('.form__input_type_src');
 
