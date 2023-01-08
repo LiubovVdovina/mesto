@@ -8,11 +8,6 @@ const popupAddCard = document.querySelector('.popup_type_add');
 const popupImg = document.querySelector('.popup_type_img');
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
-// кнопки закрытия попапов
-const buttonClosePopupEditProfile = popupEditProfile.querySelector('.button_type_close');
-const buttonClosePopupAddCard = popupAddCard.querySelector('.button_type_close');
-const buttonClosePopupImg = popupImg.querySelector('.button_type_close');
-
 // элементы, необходимые для обработки форм
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
@@ -150,18 +145,13 @@ initialCards.forEach(addCard);
 buttonOpenPopupEditProfile.addEventListener('click', openPopupEditProfile);
 buttonOpenPopupAddCard.addEventListener('click', () => openPopup(popupAddCard))
 
-// Слушатели закрытия попапа
-buttonClosePopupEditProfile.addEventListener('click', () => closePopup(popupEditProfile));
-buttonClosePopupAddCard.addEventListener('click', () => closePopup(popupAddCard));
-buttonClosePopupImg.addEventListener('click', () => closePopup(popupImg));
-
-// Слушатели закрытия попапов по клику на оверлей
+// Слушатели закрытия попапов по клику на оверлей или крестик
 popupList.forEach((popup) => {
-  popup.querySelector('.popup__wrapper').addEventListener('click', (evt) => evt.stopPropagation());
-  popup.addEventListener('click', () => closePopup(popup));
+  popup.querySelector('.popup__wrapper').addEventListener('mousedown', (evt) => evt.stopPropagation());
+  popup.addEventListener('mousedown', () => closePopup(popup));
+  popup.querySelector('.button_type_close').addEventListener('mousedown', () => closePopup(popup));
 });
 
 // Слушатели отправки формы
 formEditProfile.addEventListener('submit', handleFormEditProfileSubmit);
 formAddCard.addEventListener('submit', handleFormAddCardSubmit);
-
