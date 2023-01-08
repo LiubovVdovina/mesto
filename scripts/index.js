@@ -6,6 +6,7 @@ const buttonOpenPopupAddCard = document.querySelector('.button_type_add');
 const popupEditProfile = document.querySelector('.popup_type_edit');
 const popupAddCard = document.querySelector('.popup_type_add');
 const popupImg = document.querySelector('.popup_type_img');
+const popupList = Array.from(document.querySelectorAll('.popup'));
 
 // кнопки закрытия попапов
 const buttonClosePopupEditProfile = popupEditProfile.querySelector('.button_type_close');
@@ -62,8 +63,6 @@ const initialCards = [
 // Функция открытия попапа
 const openPopup = (popup) => {
   document.addEventListener('keydown', closeEscapeKey);
-  popup.querySelector('.popup__wrapper').addEventListener('click', (evt) => evt.stopPropagation());
-  popup.addEventListener('click', () => closePopup(popup));
   popup.classList.add('popup_opened', 'popup_smooth');
 }
 
@@ -156,6 +155,13 @@ buttonClosePopupEditProfile.addEventListener('click', () => closePopup(popupEdit
 buttonClosePopupAddCard.addEventListener('click', () => closePopup(popupAddCard));
 buttonClosePopupImg.addEventListener('click', () => closePopup(popupImg));
 
+// Слушатели закрытия попапов по клику на оверлей
+popupList.forEach((popup) => {
+  popup.querySelector('.popup__wrapper').addEventListener('click', (evt) => evt.stopPropagation());
+  popup.addEventListener('click', () => closePopup(popup));
+});
+
 // Слушатели отправки формы
 formEditProfile.addEventListener('submit', handleFormEditProfileSubmit);
 formAddCard.addEventListener('submit', handleFormAddCardSubmit);
+
