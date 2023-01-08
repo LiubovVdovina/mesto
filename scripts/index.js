@@ -111,8 +111,6 @@ const handleFormAddCardSubmit = (evt) => {
   card.link = srcInput.value;
   addCard(card);
   formAddCard.reset();
-  evt.submitter.disabled = true;
-  evt.submitter.classList.add(config.inactiveButtonClass);
   closePopup(popupAddCard);
 }
 
