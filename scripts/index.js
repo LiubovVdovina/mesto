@@ -139,7 +139,7 @@ const clickLike = (evt) => {
 
 // удаление карточки при нажатии на корзину
 const removeCard = (evt) => {
-  evt.target.parentElement.remove();
+  evt.target.closest('.card').remove();
 }
 
 // Динамическое добавление карточек через JS
