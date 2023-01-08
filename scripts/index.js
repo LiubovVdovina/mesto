@@ -76,7 +76,7 @@ const openPopupEditProfile = () => {
 const openPopupImg = (evt) => {
   imagePopupElement.src = evt.target.src;
   imagePopupElement.alt = evt.target.alt;
-  captionPopupElement.textContent = evt.target.parentElement.querySelector('.card__caption').textContent;
+  captionPopupElement.textContent = evt.target.closest('.card').querySelector('.card__caption').textContent;
   openPopup(popupImg);
 }
 
