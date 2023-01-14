@@ -1,3 +1,6 @@
+import {Card} from "./Card.js"
+import {FormValidator} from "./FormValidator.js"
+
 // кнопки открытия попапов
 const buttonOpenPopupEditProfile = document.querySelector('.button_type_edit');
 const buttonOpenPopupAddCard = document.querySelector('.button_type_add');
@@ -5,7 +8,6 @@ const buttonOpenPopupAddCard = document.querySelector('.button_type_add');
 // элементы попапов
 const popupEditProfile = document.querySelector('.popup_type_edit');
 const popupAddCard = document.querySelector('.popup_type_add');
-const popupImg = document.querySelector('.popup_type_img');
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
 // элементы, необходимые для обработки форм
@@ -20,11 +22,19 @@ const formAddCard = document.forms["place-form"];
 const placeInput = popupAddCard.querySelector('.form__input_type_place');
 const srcInput = popupAddCard.querySelector('.form__input_type_src');
 
-const imagePopupElement = popupImg.querySelector('.popup__img');
-const captionPopupElement = popupImg.querySelector('.popup__caption');
-
+// Элемент галлереи карточек
 const cardList = document.querySelector('.gallery__list');
-const cardTemplate = document.querySelector('#card').content;
+
+// Настройки валидации
+const settings = { 
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.button_type_submit',
+  inactiveButtonClass: 'button_inactive',
+  inputErrorClass: 'form__input_type_error', 
+  errorClass: 'form__input-error_active'
+}
+
 
 const initialCards = [
   {
@@ -56,7 +66,7 @@ const initialCards = [
 // Объявление функций
 
 // Функция открытия попапа
-const openPopup = (popup) => {
+export const openPopup = (popup) => {
   document.addEventListener('keydown', closeEscapeKey);
   popup.classList.add('popup_opened');
 }
@@ -66,13 +76,6 @@ const openPopupEditProfile = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   openPopup(popupEditProfile);
-}
-
-const openPopupImg = (card) => {
-  imagePopupElement.src = card.link;
-  imagePopupElement.alt = card.name;
-  captionPopupElement.textContent = card.name;
-  openPopup(popupImg);
 }
 
 // Функция закрытия попапа
@@ -108,37 +111,12 @@ const handleFormAddCardSubmit = (evt) => {
   closePopup(popupAddCard);
 }
 
-// Создание элемента карточки из данных
-const createCard = (card) => {
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  const cardImgElement = cardElement.querySelector('.card__img');
-  cardImgElement.src = card.link;
-  cardImgElement.alt = card.name;
-  cardImgElement.addEventListener('click', () => openPopupImg(card));
-  cardElement.querySelector('.card__caption').textContent = card.name;
-  cardElement.querySelector('.card__like').addEventListener('click', clickLike);
-  cardElement.querySelector('.button_type_remove').addEventListener('click', removeCard);
-  return cardElement;
-}
-
-// Добавление элемента карточки на страницу
-const addCard = (card) => {
-  const cardElement = createCard(card);
+// Добавление сгенерированного элемента карточки на страницу
+const addCard = (data) => {
+  const card = new Card(data, '#card');
+  const cardElement = card.generateCard();
   cardList.prepend(cardElement);
 }
-
-// окрашивание лайка при нажатии
-const clickLike = (evt) => {
-  evt.target.classList.toggle('card__like_active');
-}
-
-// удаление карточки при нажатии на корзину
-const removeCard = (evt) => {
-  evt.target.closest('.card').remove();
-}
-
-// Динамическое добавление карточек через JS
-initialCards.forEach(addCard);
 
 // Установка слушателей
 // Слушатели открытия попапа
@@ -155,3 +133,16 @@ popupList.forEach((popup) => {
 // Слушатели отправки формы
 formEditProfile.addEventListener('submit', handleFormEditProfileSubmit);
 formAddCard.addEventListener('submit', handleFormAddCardSubmit);
+
+
+
+
+// Динамическое добавление карточек через JS
+initialCards.forEach(addCard);
+
+// создание для каждой формы экземпляра класса FormValidator и включение валидации
+const formList = Array.from(document.querySelectorAll(settings.formSelector));
+  formList.forEach((formElement) => {
+    const formValidator = new FormValidator(settings, formElement);
+    formValidator.enableValidation();
+  });
