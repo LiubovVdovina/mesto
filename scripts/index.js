@@ -66,14 +66,12 @@ buttonOpenPopupAddCard.addEventListener('click', () => openPopup(popupAddCard))
 popupList.forEach((popup) => {
   popup.querySelector('.popup__wrapper').addEventListener('mousedown', (evt) => evt.stopPropagation());
   popup.addEventListener('mousedown', () => closePopup(popup));
-  popup.querySelector('.button_type_close').addEventListener('mousedown', () => closePopup(popup));
+  popup.querySelector('.button_type_close').addEventListener('click', () => closePopup(popup));
 });
 
 // Слушатели отправки формы
 formEditProfile.addEventListener('submit', handleFormEditProfileSubmit);
 formAddCard.addEventListener('submit', handleFormAddCardSubmit);
-
-
 
 
 // Динамическое добавление карточек через JS
