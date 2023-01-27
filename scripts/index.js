@@ -6,7 +6,7 @@ import {buttonOpenPopupEditProfile, buttonOpenPopupAddCard, popupEditProfile, po
 
 // Функция открытия попапа
 export const openPopup = (popup) => {
-  document.addEventListener('keydown', closeEscapeKey);
+  document.addEventListener('keydown', closePopupOnEscape);
   popup.classList.add('popup_opened');
 }
 
@@ -20,15 +20,23 @@ const openPopupEditProfile = () => {
 // Функция закрытия попапа
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeEscapeKey);
+  document.removeEventListener('keydown', closePopupOnEscape);
 }
 
 // Функция закрытия попапа по нажатию escape
-const closeEscapeKey = (evt) => {
+const closePopupOnEscape = (evt) => {
   if (evt.key === 'Escape') {
     closePopup(document.querySelector('.popup_opened'));
   }
 }
+
+// Функция закрытия попапа по нажатию на оверлей
+const closePopupOnOverlay = (evt) => {
+  if (evt.target.classList.contains('popup')) {
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
+  };
+};
 
 // Функции обработки форм
 // Отправка формы редактирования профиля
@@ -64,8 +72,7 @@ buttonOpenPopupAddCard.addEventListener('click', () => openPopup(popupAddCard))
 
 // Слушатели закрытия попапов по клику на оверлей или крестик
 popupList.forEach((popup) => {
-  popup.querySelector('.popup__wrapper').addEventListener('mousedown', (evt) => evt.stopPropagation());
-  popup.addEventListener('mousedown', () => closePopup(popup));
+  popup.addEventListener('mousedown', closePopupOnOverlay);
   popup.querySelector('.button_type_close').addEventListener('click', () => closePopup(popup));
 });
 
