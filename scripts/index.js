@@ -14,6 +14,7 @@ export const openPopup = (popup) => {
 const openPopupEditProfile = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  formEditProfileValidator.resetValidation();
   openPopup(popupEditProfile);
 }
 
@@ -85,8 +86,8 @@ formAddCard.addEventListener('submit', handleFormAddCardSubmit);
 initialCards.forEach(addCard);
 
 // создание для каждой формы экземпляра класса FormValidator и включение валидации
-const formList = Array.from(document.querySelectorAll(settings.formSelector));
-  formList.forEach((formElement) => {
-    const formValidator = new FormValidator(settings, formElement);
-    formValidator.enableValidation();
-  });
+  const formEditProfileValidator = new FormValidator(settings, formEditProfile);
+  formEditProfileValidator.enableValidation();
+
+  const formAddCardValidator = new FormValidator(settings, formAddCard);
+  formAddCardValidator.enableValidation();

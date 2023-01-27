@@ -70,6 +70,11 @@ export class FormValidator {
       });
     })
   }  
+  
+  // вспомогательный метод для проверки валидности инпутов формы не при срабатывании слушателя
+  resetValidation() {
+    this._inputList.forEach((inputElement) => this._checkInputValidity(inputElement));
+  }
 
   enableValidation() {
     this._formElement.addEventListener('submit', (evt) => {
