@@ -9,6 +9,8 @@
 - CSS
 - адаптивная верстка (Grid Layout, Flexbox, media queries)
 - Java Script
+- деструктуризация
+- ООП
 
 ## GitHub Pages
 https://liubovvdovina.github.io/mesto
