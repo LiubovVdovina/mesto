@@ -1,8 +1,5 @@
-// Селектор попапа с изображением и его элементов
+// Селектор попапа с изображением
 const imagePopupSelector = '.popup_type_img';
-const popupImg = document.querySelector('.popup_type_img');
-const imagePopupElement = popupImg.querySelector('.popup__img');
-const captionPopupElement = popupImg.querySelector('.popup__caption');
 
 // кнопки открытия попапов
 const buttonOpenPopupEditProfile = document.querySelector('.button_type_edit');
@@ -60,5 +57,5 @@ const initialCards = [
   }
 ]; 
 
-export {imagePopupSelector, popupImg, imagePopupElement, captionPopupElement}
+export {imagePopupSelector}
 export {popupAddCardSelector, buttonOpenPopupEditProfile, buttonOpenPopupAddCard, popupEditProfileSelector, profileNameSelector, profileJobSelector, formEditProfile, formAddCard, cardListSelector, settings, initialCards}
