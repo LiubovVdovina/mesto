@@ -6,10 +6,10 @@ export default class PopupWithImage extends Popup {
     super(popupSelector);
   }
 
-  open(image) {
-    imagePopupElement.src = image.link;
-    imagePopupElement.alt = image.name;
-    captionPopupElement.textContent = image.name;
+  open({ name, link }) {
+    imagePopupElement.src = link;
+    imagePopupElement.alt = name;
+    captionPopupElement.textContent = name;
     document.addEventListener('keydown', this._handleEscClose.bind(this));
     this._popup.classList.add('popup_opened');
   }

@@ -15,7 +15,7 @@ const createCard = (data) => {
   const cardElement = new Card({
     data: data, 
     templateSelector: '#card', 
-    handleCardClick: () => imagePopup.open.bind(imagePopup)(data)
+    handleCardClick: (name, link) => imagePopup.open({ name, link })
   });
   return cardElement.generateCard();
 };
