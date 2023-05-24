@@ -62,7 +62,7 @@ imagePopup.setEventListeners();
 buttonOpenPopupEditProfile.addEventListener('click', () => {
   const currUserInfo = userInfo.getUserInfo();
   popupEditProfile.setInputValues(currUserInfo);
-  popupEditProfile.open.bind(popupEditProfile)();
+  popupEditProfile.open();
 });
 
 buttonOpenPopupAddCard.addEventListener('click', popupAddCard.open.bind(popupAddCard))
