@@ -40,9 +40,11 @@ const popupEditProfile = new PopupWithForm({
 const popupAddCard = new PopupWithForm({
   popupSelector: popupAddCardSelector, 
   handleFormSubmit: (data) => {
-    data['name'] = data.place;
-    data['link'] = data.src;
-    cardList.addItem(createCard(data))
+    const cardData = {
+      name: data.place,
+      link: data.src,
+    };
+    cardList.addItem(createCard(cardData))
     popupAddCard.close();
   }
 });
