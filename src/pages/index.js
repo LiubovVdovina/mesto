@@ -23,7 +23,7 @@ const createCard = (data) => {
 // Создание экземпляров классов секция, карточка и все виды попапов
 
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
-const cardList = new Section({ items: initialCards, renderer: (item) => {
+const cardList = new Section({ items: initialCards.reverse(), renderer: (item) => {
   cardList.addItem(createCard(item));
 }}, cardListSelector);
 
