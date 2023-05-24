@@ -9,6 +9,7 @@
 - CSS
 - адаптивная верстка (Grid Layout, Flexbox, media queries)
 - Java Script
+- Webpack
 - деструктуризация
 - ООП
 
