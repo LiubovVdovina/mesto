@@ -33,7 +33,6 @@ const popupEditProfile = new PopupWithForm({
   popupSelector: popupEditProfileSelector, 
   handleFormSubmit: (data) => {
     userInfo.setUserInfo(data);
-    // popupEditProfile.close();
   }
 });
 
@@ -45,7 +44,6 @@ const popupAddCard = new PopupWithForm({
       link: data.src,
     };
     cardList.addItem(createCard(cardData))
-    // popupAddCard.close();
   }
 });
 
