@@ -3,7 +3,7 @@ import './index.css';
 import {formEditProfile, formAddCard, settings, imagePopupSelector, buttonOpenPopupAddCard, buttonOpenPopupEditProfile, initialCards, cardListSelector, popupAddCardSelector, popupEditProfileSelector, profileNameSelector, profileJobSelector} from "../scripts/utils/constants.js"
 
 import {Card} from "../scripts/components/Card.js"
-import {FormValidator} from "../scripts/FormValidator.js"
+import {FormValidator} from "../scripts/components/FormValidator.js"
 
 import Section from '../scripts/components/Section.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
