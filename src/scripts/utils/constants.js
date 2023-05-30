@@ -12,7 +12,7 @@ const popupAddCardSelector = '.popup_type_add';
 // Селекторы полей информации о пользователе
 const profileNameSelector = '.profile__name'; 
 const profileJobSelector = '.profile__job';
-
+const profileAvatarSelector = '.profile__avatar';
 // Элементы форм
 const formEditProfile = document.forms["edit-form"];
 const formAddCard = document.forms["place-form"];
@@ -58,4 +58,4 @@ const initialCards = [
 ]; 
 
 export {imagePopupSelector}
-export {popupAddCardSelector, buttonOpenPopupEditProfile, buttonOpenPopupAddCard, popupEditProfileSelector, profileNameSelector, profileJobSelector, formEditProfile, formAddCard, cardListSelector, settings, initialCards}
+export {popupAddCardSelector, buttonOpenPopupEditProfile, buttonOpenPopupAddCard, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector, formEditProfile, formAddCard, cardListSelector, settings, initialCards}
