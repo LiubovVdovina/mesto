@@ -2,7 +2,7 @@ import './index.css';
 
 // import { getUserInfo } from '../scripts/components/Api';
 
-import {formEditProfile, formAddCard, settings, imagePopupSelector, buttonOpenPopupAddCard, buttonOpenPopupEditProfile, initialCards, cardListSelector, popupAddCardSelector, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector} from "../scripts/utils/constants.js"
+import {formEditProfile, formAddCard, settings, imagePopupSelector, buttonOpenPopupAddCard, buttonOpenPopupEditProfile, cardListSelector, popupAddCardSelector, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector} from "../scripts/utils/constants.js"
 
 import {Card} from "../scripts/components/Card.js"
 import {FormValidator} from "../scripts/components/FormValidator.js"
@@ -12,8 +12,6 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import Api from '../scripts/components/Api.js';
-
-// getUserInfo();
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
@@ -28,6 +26,9 @@ api.getUserInfo()
     userInfo.setUserInfo({ name: res.name, job: res.about });   // Получение полей имени и профессии от сервера
   })
 
+  //Динамическая генерация начальных карточек
+api.getInitialCards()
+  .then(res => res.forEach((item) => cardList.addItem(createCard(item))));
 
 // Вспомогательная функция генерации элемента карточки
 const createCard = (data) => {
@@ -42,7 +43,7 @@ const createCard = (data) => {
 // Создание экземпляров классов секция, карточка и все виды попапов
 
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector, profileAvatarSelector);
-const cardList = new Section({ items: initialCards.reverse(), renderer: (item) => {
+const cardList = new Section({ items: [], renderer: (item) => {
   cardList.addItem(createCard(item));
 }}, cardListSelector);
 
@@ -66,9 +67,6 @@ const popupAddCard = new PopupWithForm({
     cardList.addItem(createCard(cardData))
   }
 });
-
-//Динамическая генерация начальных карточек
-cardList.renderItems();
 
 // Установка слушателей
 popupEditProfile.setEventListeners();
