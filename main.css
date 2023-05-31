@@ -35,10 +35,11 @@
 .card{background-color:#fff;border-radius:10px;box-sizing:border-box;color:#000;font-size:24px;font-weight:900;line-height:29px;position:relative;width:100%}
 .button_type_remove{background-color:transparent;background-image:url(images/trash.161265c632b9f887063c.svg);background-size:100%;border:none;height:19.3px;padding:0;position:absolute;right:20px;top:20px;width:18px}
 .card__img{aspect-ratio:1/1;background-color:#000;border-radius:10px 10px 0 0;color:#fff;display:block;min-height:282px;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;width:100%}.card__img:hover{cursor:pointer}
-.card__label{align-items:center;box-sizing:border-box;display:flex;gap:20px;justify-content:space-between;padding:25px 20px 26px 21px;width:100%}
+.card__label{align-items:center;box-sizing:border-box;display:flex;gap:20px;justify-content:space-between;min-height:35px;padding:22px 20px 22px 21px;width:100%}
 .card__caption{display:block;margin:0;max-width:calc(100% - 42px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:-moz-fit-content;width:fit-content}
-.card__like{background-color:transparent;background-image:url(images/like.87ed371465c7a6a1cd01.svg);background-size:contain;border:none;display:block;height:19px;padding:0;width:22px}.card__like:hover{cursor:pointer;opacity:.5}
-.card__like_active{background-image:url(images/like-dark.d750ae7834bd9bfe5181.svg)}
+.button_type_like{background-color:transparent;background-image:url(images/like.87ed371465c7a6a1cd01.svg);background-size:contain;border:none;display:block;height:19px;padding:0;width:22px}.button_type_like:hover{cursor:pointer;opacity:.5}
+.button_type_like_active{background-image:url(images/like-dark.d750ae7834bd9bfe5181.svg)}
+.card__likes{display:flex;flex-direction:column;font-size:13px;font-weight:400;gap:3px;height:100%;justify-content:space-between;line-height:13px;text-align:center}
 .footer{box-sizing:border-box;margin:0 auto;max-width:880px;padding:66px 0 60px;width:80%}@media screen and (max-width:568px){.footer{padding:48px 19px 36px;width:100%}}
 .footer__copyright{color:#545454;font-size:18px;line-height:22px;margin:0}@media screen and (max-width:568px){.footer__copyright{font-size:14px;line-height:17px}}
 
