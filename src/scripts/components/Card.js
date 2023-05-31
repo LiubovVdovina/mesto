@@ -9,6 +9,7 @@ export class Card {
     this._ownerId = data.owner._id;
     this._curUserId = curUserId;
     this._handleCardClick = handleCardClick;
+    this._clickLike = this._clickLike.bind(this)
   }
 
   _getTemplate() {
@@ -25,18 +26,43 @@ export class Card {
     return cardElement;
   }
 
-  _clickLike() {
-    this.classList.toggle('button_type_like_active');
+  _isLiked(likes) {
+    let isLiked = false;
+    likes.forEach(like => {
+      if (like._id == this._curUserId) {
+        isLiked = true;
+      }
+    });
+    return isLiked;
   }
 
-  _removeCard = () => {
+  _clickLike(evt) {
+    evt.target.classList.toggle('button_type_like_active');
+    if(this._isLiked(this._likes)) {
+      api.removeLike(this._id).then(res => {
+        this._likes = res.likes;
+        this._countlikes();
+      })
+    } else {
+      api.putLike(this._id).then(res => {
+        this._likes = res.likes;
+        this._countlikes();
+      });
+    }
+  }
+
+  _countlikes() {
+    this._element.querySelector('.card__likes-number').textContent = this._likes.length;
+  }
+
+  _removeCard() {
     this._element.remove();
     api.removeCard(this._id);
   }
 
   _setEventListeners() {
     this._cardImgElement.addEventListener('click', ()=> this._handleCardClick(this._name, this._image));
-    this._element.querySelector('.button_type_like').addEventListener('click', this._clickLike);
+    this._element.querySelector('.button_type_like').addEventListener('click', (evt) => this._clickLike(evt));
     if(this._element.querySelector('.button_type_remove')) {
       this._element.querySelector('.button_type_remove').addEventListener('click', this._removeCard);
     }
@@ -49,7 +75,10 @@ export class Card {
     this._cardImgElement.src = this._image;
     this._cardImgElement.alt = this._name;
     this._element.querySelector('.card__caption').textContent = this._name;
-    this._element.querySelector('.card__likes-number').textContent = this._likes.length;
+    if(this._isLiked(this._likes)) {
+      this._element.querySelector('.button_type_like').classList.toggle('button_type_like_active');
+    }
+    this._countlikes();
 
     return this._element;
   }
