@@ -77,14 +77,17 @@ const imagePopup = new PopupWithImage({ popupSelector: imagePopupSelector });
 const popupEditProfile = new PopupWithForm({ 
   popupSelector: popupEditProfileSelector, 
   handleFormSubmit: (data) => {
+    popupEditProfile.renderLoading(true);
     userInfo.setUserInfo(data);
-    api.sendUserInfo(data); //отправляем обновленные данные на сервер
+    api.sendUserInfo(data) //отправляем обновленные данные на сервер
+      .finally(popupEditProfile.renderLoading(false));
   }
 });
 
 const popupAddCard = new PopupWithForm({
   popupSelector: popupAddCardSelector, 
   handleFormSubmit: (data) => {
+    popupAddCard.renderLoading(true);
     const cardData = {
       name: data.place,
       link: data.src,
@@ -94,9 +97,10 @@ const popupAddCard = new PopupWithForm({
       
     };
     api.sendCardInfo(cardData)
-    .then(res => {
-      cardList.addItem(createCard(res));
-    })
+      .then(res => {
+        cardList.addItem(createCard(res));
+      })
+      .finally(popupAddCard.renderLoading(false));
   }
 });
 
@@ -113,7 +117,9 @@ const popupRemoveCard = new PopupWithConfirmation({
 const popupAvatar = new PopupWithForm({ 
   popupSelector: popupAvatarSelector, 
   handleFormSubmit: (data) => {
-    api.sendAvatarInfo(data);
+    popupAvatar.renderLoading(true);
+    api.sendAvatarInfo(data)
+    .finally(popupAvatar.renderLoading(false));
     userInfo.setAvatar(data.src);
   }
 });
