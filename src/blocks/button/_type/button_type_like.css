@@ -1,4 +1,4 @@
-.card__like {
+.button_type_like {
   display: block;
   width: 22px;
   height: 19px;
@@ -9,7 +9,8 @@
   padding: 0;
 }
 
-.card__like:hover {
+.button_type_like:hover {
   cursor: pointer;
   opacity: .5; 
 }
+
