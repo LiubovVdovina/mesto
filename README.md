@@ -12,6 +12,8 @@
 - Webpack
 - деструктуризация
 - ООП
+- работа с API сервера
+- Promise
 
 ## GitHub Pages
 https://liubovvdovina.github.io/mesto
