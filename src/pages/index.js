@@ -2,7 +2,7 @@ import './index.css';
 
 // import { getUserInfo } from '../scripts/components/Api';
 
-import {formEditProfile, formAddCard, settings, imagePopupSelector, buttonOpenPopupAddCard, buttonOpenPopupEditProfile, cardListSelector, popupAddCardSelector, popupRemoveCardSelector, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector} from "../scripts/utils/constants.js"
+import {formAvatar, buttonOpenAvatarPopup, popupAvatarSelector, formEditProfile, formAddCard, settings, imagePopupSelector, buttonOpenPopupAddCard, buttonOpenPopupEditProfile, cardListSelector, popupAddCardSelector, popupRemoveCardSelector, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector} from "../scripts/utils/constants.js"
 
 import {Card} from "../scripts/components/Card.js"
 import {FormValidator} from "../scripts/components/FormValidator.js"
@@ -24,7 +24,7 @@ let curUserId;
 
 api.getUserInfo()
   .then(res => {
-    userInfo.setUserInfo({ name: res.name, job: res.about, id: res._id });   // Получение полей имени и профессии от сервера
+    userInfo.setUserInfo({ name: res.name, job: res.about, id: res._id, avatar: res.avatar });   // Получение полей имени и профессии от сервера
     curUserId = res._id;
   })
 
@@ -109,11 +109,19 @@ const popupRemoveCard = new PopupWithForm({
   }
 });
 
+const popupAvatar = new PopupWithForm({ 
+  popupSelector: popupAvatarSelector, 
+  handleFormSubmit: (data) => {
+    api.sendAvatarInfo(data);
+    userInfo.setAvatar(data.src);
+  }
+});
 
 // Установка слушателей
 popupEditProfile.setEventListeners();
 popupAddCard.setEventListeners();
 popupRemoveCard.setEventListeners();
+popupAvatar.setEventListeners();
 imagePopup.setEventListeners();
 
 
@@ -124,7 +132,8 @@ buttonOpenPopupEditProfile.addEventListener('click', () => {
   popupEditProfile.open();
 });
 
-buttonOpenPopupAddCard.addEventListener('click', popupAddCard.open.bind(popupAddCard))
+buttonOpenPopupAddCard.addEventListener('click', popupAddCard.open.bind(popupAddCard));
+buttonOpenAvatarPopup.addEventListener('click', popupAvatar.open.bind(popupAvatar));
 
 // создание для каждой формы экземпляра класса FormValidator и включение валидации
   const formEditProfileValidator = new FormValidator(settings, formEditProfile);
@@ -132,3 +141,6 @@ buttonOpenPopupAddCard.addEventListener('click', popupAddCard.open.bind(popupAdd
 
   const formAddCardValidator = new FormValidator(settings, formAddCard);
   formAddCardValidator.enableValidation();
+
+  const formAvatarValidator = new FormValidator(settings, formAvatar);
+  formAvatarValidator.enableValidation();

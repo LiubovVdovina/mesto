@@ -118,4 +118,22 @@ export default class Api {
       console.log(err); // выведем ошибку в консоль
     });
   }
+
+  sendAvatarInfo(data) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method:  'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({ avatar: data.src })
+    })
+    .then(res => {
+      if (res.ok) {
+        return Promise.resolve();
+      } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
+  }
 }

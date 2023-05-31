@@ -4,19 +4,22 @@ const imagePopupSelector = '.popup_type_img';
 // кнопки открытия попапов
 const buttonOpenPopupEditProfile = document.querySelector('.button_type_edit');
 const buttonOpenPopupAddCard = document.querySelector('.button_type_add');
+const buttonOpenAvatarPopup = document.querySelector('.profile__avatar-container');
 
 // селекторы попапов
 const popupEditProfileSelector = '.popup_type_edit';
 const popupAddCardSelector = '.popup_type_add';
 const popupRemoveCardSelector = '.popup_type_remove';
-
+const popupAvatarSelector = '.popup_type_avatar';
 // Селекторы полей информации о пользователе
 const profileNameSelector = '.profile__name'; 
 const profileJobSelector = '.profile__job';
 const profileAvatarSelector = '.profile__avatar';
+
 // Элементы форм
 const formEditProfile = document.forms["edit-form"];
 const formAddCard = document.forms["place-form"];
+const formAvatar = document.forms["avatar-form"];
 
 // Элемент галлереи карточек
 const cardListSelector = '.gallery__list';
@@ -31,5 +34,5 @@ const settings = {
   errorClass: 'form__input-error_active'
 }
 
-export {imagePopupSelector}
-export {popupAddCardSelector, popupRemoveCardSelector, buttonOpenPopupEditProfile, buttonOpenPopupAddCard, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector, formEditProfile, formAddCard, cardListSelector, settings}
+export {formAvatar, imagePopupSelector, buttonOpenAvatarPopup}
+export {popupAddCardSelector,popupAvatarSelector, popupRemoveCardSelector, buttonOpenPopupEditProfile, buttonOpenPopupAddCard, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector, formEditProfile, formAddCard, cardListSelector, settings}
