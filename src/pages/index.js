@@ -33,7 +33,7 @@ api.getUserInfo()
 
   //Динамическая генерация начальных карточек
 api.getInitialCards()
-  .then(res => res.forEach((item) => cardList.addItem(createCard(item))));
+  .then(res => res.reverse().forEach((item) => cardList.addItem(createCard(item))));
 
 // Вспомогательная функция генерации элемента карточки
 const createCard = (data) => {
@@ -74,7 +74,8 @@ const popupAddCard = new PopupWithForm({
       }
       
     };
-    cardList.addItem(createCard(cardData))
+    cardList.addItem(createCard(cardData));
+    api.sendCardInfo(cardData);
   }
 });
 
