@@ -28,11 +28,14 @@ api.getUserInfo()
     userInfo.setUserInfo({ name: res.name, job: res.about, id: res._id, avatar: res.avatar });   // Получение полей имени и профессии от сервера
     curUserId = res._id;
   })
+  .then(() => {
+    api.getInitialCards()
+      .then(res => res.reverse().forEach((item) => cardList.addItem(createCard(item))));
+  })
 
 
   //Динамическая генерация начальных карточек
-api.getInitialCards()
-  .then(res => res.reverse().forEach((item) => cardList.addItem(createCard(item))));
+
 
 const handleRemoveCard = (card) => {
   popupRemoveCard.open(card);
@@ -103,6 +106,7 @@ const popupAddCard = new PopupWithForm({
       .finally(popupAddCard.renderLoading(false));
   }
 });
+
 
 const popupRemoveCard = new PopupWithConfirmation({ 
   popupSelector: popupRemoveCardSelector, 
