@@ -1,8 +1,10 @@
 export class Card {
-  constructor({ data, templateSelector, handleCardClick }) {
+  constructor({ data, templateSelector, curUserId, handleCardClick }) {
     this._templateSelector = templateSelector;
     this._image = data.link;
     this._name = data.name;
+    this._ownerId = data.owner._id;
+    this._curUserId = curUserId;
     this._handleCardClick = handleCardClick;
   }
 
@@ -13,6 +15,10 @@ export class Card {
       .querySelector('.card')
       .cloneNode(true);
 
+      if(this._curUserId != this._ownerId) {
+        cardElement.querySelector('.button_type_remove').remove();
+      }
+      
     return cardElement;
   }
 
@@ -27,7 +33,9 @@ export class Card {
   _setEventListeners() {
     this._cardImgElement.addEventListener('click', ()=> this._handleCardClick(this._name, this._image));
     this._element.querySelector('.card__like').addEventListener('click', this._clickLike);
-    this._element.querySelector('.button_type_remove').addEventListener('click', this._removeCard);
+    if(this._element.querySelector('.button_type_remove')) {
+      this._element.querySelector('.button_type_remove').addEventListener('click', this._removeCard);
+    }
   }
 
   generateCard() {

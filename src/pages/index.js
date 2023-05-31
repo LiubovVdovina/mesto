@@ -13,6 +13,8 @@ import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import Api from '../scripts/components/Api.js';
 
+
+
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
   headers: {
@@ -20,11 +22,14 @@ const api = new Api({
     'Content-Type': 'application/json'
   }
 })
+let curUserId;
 
 api.getUserInfo()
   .then(res => {
-    userInfo.setUserInfo({ name: res.name, job: res.about });   // Получение полей имени и профессии от сервера
+    userInfo.setUserInfo({ name: res.name, job: res.about, id: res._id });   // Получение полей имени и профессии от сервера
+    curUserId = res._id;
   })
+
 
   //Динамическая генерация начальных карточек
 api.getInitialCards()
@@ -35,6 +40,7 @@ const createCard = (data) => {
   const cardElement = new Card({
     data: data, 
     templateSelector: '#card', 
+    curUserId : curUserId,
     handleCardClick: (name, link) => imagePopup.open({ name, link })
   });
   return cardElement.generateCard();
@@ -63,6 +69,10 @@ const popupAddCard = new PopupWithForm({
     const cardData = {
       name: data.place,
       link: data.src,
+      owner: {
+        _id: curUserId
+      }
+      
     };
     cardList.addItem(createCard(cardData))
   }
