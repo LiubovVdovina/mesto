@@ -4,6 +4,7 @@ export class Card {
     this._templateSelector = templateSelector;
     this._image = data.link;
     this._name = data.name;
+    this._likes = data.likes;
     this._id = data._id;
     this._ownerId = data.owner._id;
     this._curUserId = curUserId;
@@ -48,7 +49,8 @@ export class Card {
     this._cardImgElement.src = this._image;
     this._cardImgElement.alt = this._name;
     this._element.querySelector('.card__caption').textContent = this._name;
-    
+    this._element.querySelector('.card__likes-number').textContent = this._likes.length;
+
     return this._element;
   }
 
