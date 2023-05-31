@@ -13,7 +13,7 @@ import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import Api from '../scripts/components/Api.js';
 
-
+export { api }
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
@@ -74,8 +74,12 @@ const popupAddCard = new PopupWithForm({
       }
       
     };
-    cardList.addItem(createCard(cardData));
-    api.sendCardInfo(cardData);
+    api.sendCardInfo(cardData)
+    .then(res => {
+      cardList.addItem(createCard(res));
+    })
+    
+    
   }
 });
 

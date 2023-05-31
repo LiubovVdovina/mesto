@@ -1,8 +1,10 @@
+import { api } from '../../pages/index.js'
 export class Card {
   constructor({ data, templateSelector, curUserId, handleCardClick }) {
     this._templateSelector = templateSelector;
     this._image = data.link;
     this._name = data.name;
+    this._id = data._id;
     this._ownerId = data.owner._id;
     this._curUserId = curUserId;
     this._handleCardClick = handleCardClick;
@@ -28,6 +30,7 @@ export class Card {
 
   _removeCard = () => {
     this._element.remove();
+    api.removeCard(this._id);
   }
 
   _setEventListeners() {
