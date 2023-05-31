@@ -8,6 +8,7 @@ const buttonOpenPopupAddCard = document.querySelector('.button_type_add');
 // селекторы попапов
 const popupEditProfileSelector = '.popup_type_edit';
 const popupAddCardSelector = '.popup_type_add';
+const popupRemoveCardSelector = '.popup_type_remove';
 
 // Селекторы полей информации о пользователе
 const profileNameSelector = '.profile__name'; 
@@ -31,4 +32,4 @@ const settings = {
 }
 
 export {imagePopupSelector}
-export {popupAddCardSelector, buttonOpenPopupEditProfile, buttonOpenPopupAddCard, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector, formEditProfile, formAddCard, cardListSelector, settings}
+export {popupAddCardSelector, popupRemoveCardSelector, buttonOpenPopupEditProfile, buttonOpenPopupAddCard, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector, formEditProfile, formAddCard, cardListSelector, settings}

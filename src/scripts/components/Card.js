@@ -1,6 +1,5 @@
-import { api } from '../../pages/index.js'
 export class Card {
-  constructor({ data, templateSelector, curUserId, handleCardClick }) {
+  constructor({ data, templateSelector, curUserId, handleCardClick, handleDelete, handleLike }) {
     this._templateSelector = templateSelector;
     this._image = data.link;
     this._name = data.name;
@@ -9,8 +8,15 @@ export class Card {
     this._ownerId = data.owner._id;
     this._curUserId = curUserId;
     this._handleCardClick = handleCardClick;
+    this._handleDelete = handleDelete;
+    this._handleLike = handleLike;
     this._clickLike = this._clickLike.bind(this)
   }
+
+  getId() {
+    return this._id;
+  }
+
 
   _getTemplate() {
     const cardElement = document
@@ -26,9 +32,9 @@ export class Card {
     return cardElement;
   }
 
-  _isLiked(likes) {
+  isLiked() {
     let isLiked = false;
-    likes.forEach(like => {
+    this._likes.forEach(like => {
       if (like._id == this._curUserId) {
         isLiked = true;
       }
@@ -38,33 +44,25 @@ export class Card {
 
   _clickLike(evt) {
     evt.target.classList.toggle('button_type_like_active');
-    if(this._isLiked(this._likes)) {
-      api.removeLike(this._id).then(res => {
-        this._likes = res.likes;
-        this._countlikes();
-      })
-    } else {
-      api.putLike(this._id).then(res => {
-        this._likes = res.likes;
-        this._countlikes();
-      });
-    }
+    this._handleLike();
   }
 
-  _countlikes() {
-    this._element.querySelector('.card__likes-number').textContent = this._likes.length;
+  countLikes(likes) {
+    this._likes = likes;
+    this._element.querySelector('.card__likes-number').textContent =  this._likes.length;
   }
 
-  _removeCard() {
+  removeCard() {
     this._element.remove();
-    api.removeCard(this._id);
   }
 
   _setEventListeners() {
     this._cardImgElement.addEventListener('click', ()=> this._handleCardClick(this._name, this._image));
     this._element.querySelector('.button_type_like').addEventListener('click', (evt) => this._clickLike(evt));
     if(this._element.querySelector('.button_type_remove')) {
-      this._element.querySelector('.button_type_remove').addEventListener('click', this._removeCard);
+      this._element.querySelector('.button_type_remove').addEventListener('click', ()=> { 
+        this._handleDelete();
+       } );
     }
   }
 
@@ -75,10 +73,10 @@ export class Card {
     this._cardImgElement.src = this._image;
     this._cardImgElement.alt = this._name;
     this._element.querySelector('.card__caption').textContent = this._name;
-    if(this._isLiked(this._likes)) {
+    if(this.isLiked(this._likes)) {
       this._element.querySelector('.button_type_like').classList.toggle('button_type_like_active');
     }
-    this._countlikes();
+    this.countLikes(this._likes);
 
     return this._element;
   }

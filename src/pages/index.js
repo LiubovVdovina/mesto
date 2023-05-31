@@ -2,7 +2,7 @@ import './index.css';
 
 // import { getUserInfo } from '../scripts/components/Api';
 
-import {formEditProfile, formAddCard, settings, imagePopupSelector, buttonOpenPopupAddCard, buttonOpenPopupEditProfile, cardListSelector, popupAddCardSelector, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector} from "../scripts/utils/constants.js"
+import {formEditProfile, formAddCard, settings, imagePopupSelector, buttonOpenPopupAddCard, buttonOpenPopupEditProfile, cardListSelector, popupAddCardSelector, popupRemoveCardSelector, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector} from "../scripts/utils/constants.js"
 
 import {Card} from "../scripts/components/Card.js"
 import {FormValidator} from "../scripts/components/FormValidator.js"
@@ -12,8 +12,6 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import Api from '../scripts/components/Api.js';
-
-export { api }
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
@@ -35,13 +33,33 @@ api.getUserInfo()
 api.getInitialCards()
   .then(res => res.reverse().forEach((item) => cardList.addItem(createCard(item))));
 
+const handleRemoveCard = (card) => {
+  popupRemoveCard.open(card);
+}
+
 // Вспомогательная функция генерации элемента карточки
 const createCard = (data) => {
   const cardElement = new Card({
     data: data, 
     templateSelector: '#card', 
     curUserId : curUserId,
-    handleCardClick: (name, link) => imagePopup.open({ name, link })
+    handleCardClick: (name, link) => imagePopup.open({ name, link }),
+    handleDelete: () => {
+      handleRemoveCard(cardElement);
+    },
+    handleLike: () => {
+      if(cardElement.isLiked()) {
+        api.removeLike(cardElement.getId())
+          .then((res) => {
+            cardElement.countLikes(res.likes);
+          })
+      } else {
+        api.putLike(cardElement.getId())
+          .then((res) => {
+            cardElement.countLikes(res.likes);
+          })
+      }
+    }
   });
   return cardElement.generateCard();
 };
@@ -78,14 +96,24 @@ const popupAddCard = new PopupWithForm({
     .then(res => {
       cardList.addItem(createCard(res));
     })
-    
-    
   }
 });
+
+const popupRemoveCard = new PopupWithForm({ 
+  popupSelector: popupRemoveCardSelector, 
+  handleFormSubmit: (data) => {
+    api.removeCard(data.card.getId())
+    .then(() => {
+      data.card.removeCard();
+    });
+  }
+});
+
 
 // Установка слушателей
 popupEditProfile.setEventListeners();
 popupAddCard.setEventListeners();
+popupRemoveCard.setEventListeners();
 imagePopup.setEventListeners();
 
 
