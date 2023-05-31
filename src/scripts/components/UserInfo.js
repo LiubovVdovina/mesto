@@ -9,7 +9,8 @@ export default class UserInfo {
     const userInfo = {
       name: this._nameElement.textContent,
       job: this._jobElement.textContent,
-      id: this._id
+      id: this._id,
+      avatar: this._avatarElement.src
     }
     return(userInfo);
   }
@@ -18,7 +19,9 @@ export default class UserInfo {
     this._nameElement.textContent = name;
     this._jobElement.textContent = job;
     this._id = id;
-    this.setAvatar(avatar);
+    if (avatar) {
+      this.setAvatar(avatar);
+    }
   }
 
   setAvatar(avatar) {

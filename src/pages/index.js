@@ -12,6 +12,7 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import Api from '../scripts/components/Api.js';
+import PopupWithConfirmation from '../scripts/components/PopupWithConfirmation.js'
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
@@ -99,12 +100,12 @@ const popupAddCard = new PopupWithForm({
   }
 });
 
-const popupRemoveCard = new PopupWithForm({ 
+const popupRemoveCard = new PopupWithConfirmation({ 
   popupSelector: popupRemoveCardSelector, 
-  handleFormSubmit: (data) => {
-    api.removeCard(data.card.getId())
+  handleFormSubmit: (card) => {
+    api.removeCard(card.getId())
     .then(() => {
-      data.card.removeCard();
+      card.removeCard();
     });
   }
 });
