@@ -58,12 +58,14 @@ const createCard = (data) => {
         api.removeLike(cardElement.getId())
           .then((res) => {
             cardElement.countLikes(res.likes);
+            cardElement.clickLike();
           })
           .catch((err) => console.log(err))
       } else {
         api.putLike(cardElement.getId())
           .then((res) => {
             cardElement.countLikes(res.likes);
+            cardElement.clickLike();
           })
           .catch((err) => console.log(err))
       }
