@@ -89,6 +89,7 @@ const popupEditProfile = new PopupWithForm({
     popupEditProfile.renderLoading(true);
     userInfo.setUserInfo(data);
     api.sendUserInfo(data) //отправляем обновленные данные на сервер
+      .then(()=> popupEditProfile.close())
       .catch((err) => console.log(err))
       .finally(() => popupEditProfile.renderLoading(false));
   }
@@ -109,9 +110,10 @@ const popupAddCard = new PopupWithForm({
     api.sendCardInfo(cardData)
       .then(res => {
         cardList.addItem(createCard(res));
+        popupAddCard.close();
       })
       .catch((err) => console.log(err))
-      .finally(popupAddCard.renderLoading(false));
+      .finally(() => popupAddCard.renderLoading(false));
   }
 });
 
@@ -122,6 +124,7 @@ const popupRemoveCard = new PopupWithConfirmation({
     api.removeCard(card.getId())
     .then(() => {
       card.removeCard();
+      popupRemoveCard.close();
     })
     .catch((err) => console.log(err));
   }
@@ -132,8 +135,9 @@ const popupAvatar = new PopupWithForm({
   handleFormSubmit: (data) => {
     popupAvatar.renderLoading(true);
     api.sendAvatarInfo(data)
+      .then(() => popupAvatar.close())
       .catch((err) => console.log(err))
-      .finally(popupAvatar.renderLoading(false));
+      .finally(()=> popupAvatar.renderLoading(false));
     userInfo.setAvatar(data.src);
   }
 });

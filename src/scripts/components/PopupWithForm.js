@@ -26,7 +26,6 @@ export default class PopupWithForm extends Popup {
 
   renderLoading(isLoading) {
     if(isLoading) {
-      console.log('Render Loading is working...');
       this._submitButton.textContent = 'Сохранение...';
     }
     else {
@@ -38,7 +37,6 @@ export default class PopupWithForm extends Popup {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues())
-      this.close();
     });
     super.setEventListeners();
   }
