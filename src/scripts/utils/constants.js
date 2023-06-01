@@ -16,11 +16,6 @@ const profileNameSelector = '.profile__name';
 const profileJobSelector = '.profile__job';
 const profileAvatarSelector = '.profile__avatar';
 
-// Элементы форм
-const formEditProfile = document.forms["edit-form"];
-const formAddCard = document.forms["place-form"];
-const formAvatar = document.forms["avatar-form"];
-
 // Элемент галлереи карточек
 const cardListSelector = '.gallery__list';
 
@@ -34,5 +29,5 @@ const settings = {
   errorClass: 'form__input-error_active'
 }
 
-export {formAvatar, imagePopupSelector, buttonOpenAvatarPopup}
-export {popupAddCardSelector,popupAvatarSelector, popupRemoveCardSelector, buttonOpenPopupEditProfile, buttonOpenPopupAddCard, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector, formEditProfile, formAddCard, cardListSelector, settings}
+export {imagePopupSelector, buttonOpenAvatarPopup}
+export {popupAddCardSelector,popupAvatarSelector, popupRemoveCardSelector, buttonOpenPopupEditProfile, buttonOpenPopupAddCard, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector, cardListSelector, settings}

@@ -2,7 +2,7 @@ import './index.css';
 
 // import { getUserInfo } from '../scripts/components/Api';
 
-import {formAvatar, buttonOpenAvatarPopup, popupAvatarSelector, formEditProfile, formAddCard, settings, imagePopupSelector, buttonOpenPopupAddCard, buttonOpenPopupEditProfile, cardListSelector, popupAddCardSelector, popupRemoveCardSelector, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector} from "../scripts/utils/constants.js"
+import { buttonOpenAvatarPopup, popupAvatarSelector, settings, imagePopupSelector, buttonOpenPopupAddCard, buttonOpenPopupEditProfile, cardListSelector, popupAddCardSelector, popupRemoveCardSelector, popupEditProfileSelector, profileNameSelector, profileJobSelector, profileAvatarSelector} from "../scripts/utils/constants.js"
 
 import {Card} from "../scripts/components/Card.js"
 import {FormValidator} from "../scripts/components/FormValidator.js"
@@ -152,11 +152,16 @@ buttonOpenPopupAddCard.addEventListener('click', popupAddCard.open.bind(popupAdd
 buttonOpenAvatarPopup.addEventListener('click', popupAvatar.open.bind(popupAvatar));
 
 // создание для каждой формы экземпляра класса FormValidator и включение валидации
-  const formEditProfileValidator = new FormValidator(settings, formEditProfile);
-  formEditProfileValidator.enableValidation();
 
-  const formAddCardValidator = new FormValidator(settings, formAddCard);
-  formAddCardValidator.enableValidation();
+const formValidators = {};
+const enableValidation = (settings) => {
+  const formList = Array.from(document.querySelectorAll(settings.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(settings, formElement);
+    const formName = formElement.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  })
+}
 
-  const formAvatarValidator = new FormValidator(settings, formAvatar);
-  formAvatarValidator.enableValidation();
+enableValidation(settings);
