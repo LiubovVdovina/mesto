@@ -4,136 +4,53 @@ export default class Api {
     this._headers = headers;
   }
 
-  getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, { headers: this._headers })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+      
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+  }
+
+  _request(url, { method, headers, body }) {
+    return fetch(`${this._baseUrl}${url}`, {
+      method,
+      headers,
+      body
     })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
+    .then(this._checkResponse)
+  }
+
+  getUserInfo() {
+    return this._request('/users/me', { method: 'GET', headers: this._headers });
   }
 
   sendUserInfo({ name, job }) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method:  'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({ name: name, about: job })
-    })
-    .then(res => {
-      if (res.ok) {
-        return Promise.resolve();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
+    return this._request('/users/me', { method: 'PATCH', headers: this._headers, body: JSON.stringify({ name: name, about: job })});
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, { headers: this._headers })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
+    return this._request('/cards', {method: 'GET', headers: this._headers});
   }
 
   sendCardInfo({ name, link }) {
-    return fetch(`${this._baseUrl}/cards`, {
-      method:  'POST',
-      headers: this._headers,
-      body: JSON.stringify({ name: name, link: link })
-    })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
+    return this._request('/cards', { method: 'POST', headers: this._headers, body: JSON.stringify({ name, link })});
   }
 
   removeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}`, {
-      method:  'DELETE',
-      headers: this._headers
-    })
-    .then((res) => {
-      if (res.ok) {
-        return Promise.resolve('Запрос на удаление выполнен успешно');
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
+    return this._request(`/cards/${cardId}`, {method: 'DELETE', headers: this._headers});
   }
 
   putLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method:  'PUT',
-      headers: this._headers
-    })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
+    return this._request(`/cards/${cardId}/likes`, {method: 'PUT', headers: this._headers});
   }
 
   removeLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method:  'DELETE',
-      headers: this._headers
-    })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
+    return this._request(`/cards/${cardId}/likes`, {method: 'DELETE', headers: this._headers});
   }
 
   sendAvatarInfo(data) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method:  'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({ avatar: data.src })
-    })
-    .then(res => {
-      if (res.ok) {
-        return Promise.resolve();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
+    return this._request('/users/me/avatar', { method: 'PATCH', headers: this._headers, body: JSON.stringify({ avatar: data.src })});
   }
 }
