@@ -30,8 +30,10 @@ api.getUserInfo()
   })
   .then(() => {
     api.getInitialCards()
-      .then(res => res.reverse().forEach((item) => cardList.addItem(createCard(item))));
+      .then(res => res.reverse().forEach((item) => cardList.addItem(createCard(item))))
+      .catch((err) => console.log(err));
   })
+  .catch((err) => console.log(err))
 
 
   //Динамическая генерация начальных карточек
@@ -57,11 +59,13 @@ const createCard = (data) => {
           .then((res) => {
             cardElement.countLikes(res.likes);
           })
+          .catch((err) => console.log(err))
       } else {
         api.putLike(cardElement.getId())
           .then((res) => {
             cardElement.countLikes(res.likes);
           })
+          .catch((err) => console.log(err))
       }
     }
   });
@@ -83,7 +87,8 @@ const popupEditProfile = new PopupWithForm({
     popupEditProfile.renderLoading(true);
     userInfo.setUserInfo(data);
     api.sendUserInfo(data) //отправляем обновленные данные на сервер
-      .finally(popupEditProfile.renderLoading(false));
+      .catch((err) => console.log(err))
+      .finally(() => popupEditProfile.renderLoading(false));
   }
 });
 
@@ -103,6 +108,7 @@ const popupAddCard = new PopupWithForm({
       .then(res => {
         cardList.addItem(createCard(res));
       })
+      .catch((err) => console.log(err))
       .finally(popupAddCard.renderLoading(false));
   }
 });
@@ -114,7 +120,8 @@ const popupRemoveCard = new PopupWithConfirmation({
     api.removeCard(card.getId())
     .then(() => {
       card.removeCard();
-    });
+    })
+    .catch((err) => console.log(err));
   }
 });
 
@@ -123,7 +130,8 @@ const popupAvatar = new PopupWithForm({
   handleFormSubmit: (data) => {
     popupAvatar.renderLoading(true);
     api.sendAvatarInfo(data)
-    .finally(popupAvatar.renderLoading(false));
+      .catch((err) => console.log(err))
+      .finally(popupAvatar.renderLoading(false));
     userInfo.setAvatar(data.src);
   }
 });
